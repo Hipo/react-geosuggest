@@ -3,7 +3,7 @@
 
 #### Features
 
-* **searchSuffix:** New "searchSuffix" prop is added to customize user input before sending a reques ([a573a650](https://github.com/ubilabs/react-geosuggest/commit/a573a6505378e77b32c2c0e6d2b6c58893122f5a))
+* **searchSuffix:** New "searchSuffix" prop is added to customize user input before sending a request ([a573a650](https://github.com/ubilabs/react-geosuggest/commit/a573a6505378e77b32c2c0e6d2b6c58893122f5a))
 
 
 ### 1.20.1 (2016-04-06)
