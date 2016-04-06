@@ -265,8 +265,15 @@ var Geosuggest = function (_React$Component) {
         return;
       }
 
+      var searchInput = this.state.userInput;var searchSuffix = this.props.searchSuffix;
+
+
+      if (searchSuffix) {
+        searchInput += ' ' + searchSuffix;
+      }
+
       var options = {
-        input: this.state.userInput
+        input: searchInput
       };
 
       ['location', 'radius', 'bounds', 'types'].forEach(function (option) {
@@ -769,7 +776,8 @@ exports.default = {
   onChange: _react2.default.PropTypes.func,
   skipSuggest: _react2.default.PropTypes.func,
   getSuggestLabel: _react2.default.PropTypes.func,
-  autoActivateFirstSuggest: _react2.default.PropTypes.bool
+  autoActivateFirstSuggest: _react2.default.PropTypes.bool,
+  searchSuffix: _react2.default.PropTypes.string
 };
 
 },{}],7:[function(require,module,exports){
