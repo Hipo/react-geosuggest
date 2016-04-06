@@ -135,8 +135,14 @@ class Geosuggest extends React.Component {
       return;
     }
 
+    let searchInput = this.state.userInput, {searchSuffix} = this.props;
+
+    if (searchSuffix) {
+      searchInput += ' ' + searchSuffix;
+    }
+
     const options = {
-      input: this.state.userInput
+      input: searchInput
     };
 
     ['location', 'radius', 'bounds', 'types'].forEach(option => {
