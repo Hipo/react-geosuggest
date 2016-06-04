@@ -148,10 +148,8 @@ var Geosuggest = function (_React$Component) {
      */
 
   }, {
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      this.setState({ userInput: this.props.initialValue });
-
+    key: 'componentWillMount',
+    value: function componentWillMount() {
       var googleMaps = this.props.googleMaps || window.google && // eslint-disable-line no-extra-parens
       window.google.maps || this.googleMaps;
 
@@ -324,6 +322,7 @@ var Geosuggest = function (_React$Component) {
           fixturesSearched++;
 
           suggest.placeId = suggest.label;
+          suggest.isFixture = true;
           suggests.push(suggest);
         }
       });
@@ -332,7 +331,8 @@ var Geosuggest = function (_React$Component) {
         if (!skipSuggest(suggest)) {
           suggests.push({
             label: _this5.props.getSuggestLabel(suggest),
-            placeId: suggest.place_id
+            placeId: suggest.place_id,
+            isFixture: false
           });
         }
       });
@@ -360,7 +360,7 @@ var Geosuggest = function (_React$Component) {
     value: function hideSuggests() {
       var _this6 = this;
 
-      this.props.onBlur();
+      this.props.onBlur(this.state.userInput);
       var timer = setTimeout(function () {
         _this6.setState({ isSuggestsHidden: true });
       }, 100);
@@ -445,7 +445,7 @@ var Geosuggest = function (_React$Component) {
     value: function geocodeSuggest(suggest) {
       var _this7 = this;
 
-      this.geocoder.geocode(suggest.placeId ? { placeId: suggest.placeId } : { address: suggest.label }, function (results, status) {
+      this.geocoder.geocode(suggest.placeId && !suggest.isFixture ? { placeId: suggest.placeId } : { address: suggest.label }, function (results, status) {
         if (status !== _this7.googleMaps.GeocoderStatus.OK) {
           return;
         }
@@ -474,13 +474,14 @@ var Geosuggest = function (_React$Component) {
       var _this8 = this;
 
       var attributes = (0, _filterInputAttributes2.default)(this.props),
-          classes = (0, _classnames2.default)('geosuggest', this.props.className);
-      var input = _react2.default.createElement(_input2.default, _extends({ className: this.props.inputClassName,
+          classes = (0, _classnames2.default)('geosuggest', this.props.className),
+          input = _react2.default.createElement(_input2.default, _extends({ className: this.props.inputClassName,
         ref: 'input',
         value: this.state.userInput,
         onChange: this.onInputChange.bind(this),
         onFocus: this.onInputFocus.bind(this),
         onBlur: this.onInputBlur.bind(this),
+        style: this.props.style.input,
         onNext: function onNext() {
           return _this8.activateSuggest('next');
         },
@@ -492,6 +493,8 @@ var Geosuggest = function (_React$Component) {
         },
         onEscape: this.hideSuggests.bind(this) }, attributes)),
           suggestionsList = _react2.default.createElement(_suggestList2.default, { isHidden: this.state.isSuggestsHidden,
+        style: this.props.style.suggests,
+        suggestItemStyle: this.props.style.suggestItem,
         suggests: this.state.suggests,
         activeSuggest: this.state.activeSuggest,
         onSuggestMouseDown: function onSuggestMouseDown() {
@@ -569,7 +572,12 @@ exports.default = {
   getSuggestLabel: function getSuggestLabel(suggest) {
     return suggest.description;
   },
-  autoActivateFirstSuggest: false
+  autoActivateFirstSuggest: false,
+  style: {
+    'input': {},
+    'suggests': {},
+    'suggestItem': {}
+  }
 };
 
 },{}],4:[function(require,module,exports){
@@ -594,7 +602,7 @@ exports.default = function (props) {
 /**
  * Attributes allowed on input elements
  */
-var allowedAttributes = ['autoComplete', 'autoFocus', 'disabled', 'form', 'formAction', 'formEncType', 'formMethod', 'formNoValidate', 'formTarget', 'height', 'id', 'inputMode', 'maxLength', 'name', 'pattern', 'placeholder', 'readOnly', 'required', 'size', 'spellCheck', 'tabIndex'];
+var allowedAttributes = ['autoFocus', 'disabled', 'form', 'formAction', 'formEncType', 'formMethod', 'formNoValidate', 'formTarget', 'height', 'id', 'inputMode', 'maxLength', 'name', 'pattern', 'placeholder', 'readOnly', 'required', 'size', 'spellCheck', 'tabIndex'];
 
 /**
  * Filter the properties for only allowed input properties
@@ -719,9 +727,11 @@ var Input = function (_React$Component) {
 
       return _react2.default.createElement('input', _extends({ className: classes,
         ref: 'input',
-        type: 'text'
+        type: 'text',
+        autoComplete: 'off'
       }, attributes, {
         value: this.props.value,
+        style: this.props.style,
         onKeyDown: this.onInputKeyDown.bind(this),
         onChange: this.onChange.bind(this),
         onFocus: this.props.onFocus.bind(this),
@@ -788,6 +798,11 @@ exports.default = {
   skipSuggest: _react2.default.PropTypes.func,
   getSuggestLabel: _react2.default.PropTypes.func,
   autoActivateFirstSuggest: _react2.default.PropTypes.bool,
+  style: _react2.default.PropTypes.shape({
+    input: _react2.default.PropTypes.object,
+    suggests: _react2.default.PropTypes.object,
+    suggestItem: _react2.default.PropTypes.object
+  }),
   searchSuffix: _react2.default.PropTypes.string
 };
 
@@ -827,12 +842,15 @@ exports.default = function (_ref) {
   var onMouseOut = _ref$onMouseOut === undefined ? function () {} : _ref$onMouseOut;
   var _ref$onSelect = _ref.onSelect;
   var onSelect = _ref$onSelect === undefined ? function () {} : _ref$onSelect;
+  var _ref$style = _ref.style;
+  var style = _ref$style === undefined ? {} : _ref$style;
 
   var classes = (0, _classnames2.default)('geosuggest-item', className, { 'geosuggest-item--active': isActive });
 
   return _react2.default.createElement(
     'li',
     { className: classes,
+      style: style,
       onMouseDown: onMouseDown,
       onMouseOut: onMouseOut,
       onClick: function onClick(event) {
@@ -883,18 +901,22 @@ exports.default = function (_ref) {
   var onSuggestMouseOut = _ref$onSuggestMouseOu === undefined ? function () {} : _ref$onSuggestMouseOu;
   var _ref$onSuggestSelect = _ref.onSuggestSelect;
   var onSuggestSelect = _ref$onSuggestSelect === undefined ? function () {} : _ref$onSuggestSelect;
+  var _ref$style = _ref.style;
+  var style = _ref$style === undefined ? {} : _ref$style;
+  var _ref$suggestItemStyle = _ref.suggestItemStyle;
+  var suggestItemStyle = _ref$suggestItemStyle === undefined ? {} : _ref$suggestItemStyle;
 
   var classes = (0, _classnames2.default)('geosuggest__suggests', { 'geosuggest__suggests--hidden': isHidden });
-
   return _react2.default.createElement(
     'ul',
-    { className: classes },
+    { className: classes, style: style },
     suggests.map(function (suggest) {
       var isActive = activeSuggest && suggest.placeId === activeSuggest.placeId;
 
       return _react2.default.createElement(_suggestItem2.default, { key: suggest.placeId,
         className: suggest.className,
         suggest: suggest,
+        style: suggestItemStyle,
         isActive: isActive,
         onMouseDown: onSuggestMouseDown,
         onMouseOut: onSuggestMouseOut,

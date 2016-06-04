@@ -114,9 +114,11 @@ var Input = function (_React$Component) {
 
       return _react2.default.createElement('input', _extends({ className: classes,
         ref: 'input',
-        type: 'text'
+        type: 'text',
+        autoComplete: 'off'
       }, attributes, {
         value: this.props.value,
+        style: this.props.style,
         onKeyDown: this.onInputKeyDown.bind(this),
         onChange: this.onChange.bind(this),
         onFocus: this.props.onFocus.bind(this),

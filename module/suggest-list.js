@@ -37,18 +37,22 @@ exports.default = function (_ref) {
   var onSuggestMouseOut = _ref$onSuggestMouseOu === undefined ? function () {} : _ref$onSuggestMouseOu;
   var _ref$onSuggestSelect = _ref.onSuggestSelect;
   var onSuggestSelect = _ref$onSuggestSelect === undefined ? function () {} : _ref$onSuggestSelect;
+  var _ref$style = _ref.style;
+  var style = _ref$style === undefined ? {} : _ref$style;
+  var _ref$suggestItemStyle = _ref.suggestItemStyle;
+  var suggestItemStyle = _ref$suggestItemStyle === undefined ? {} : _ref$suggestItemStyle;
 
   var classes = (0, _classnames2.default)('geosuggest__suggests', { 'geosuggest__suggests--hidden': isHidden });
-
   return _react2.default.createElement(
     'ul',
-    { className: classes },
+    { className: classes, style: style },
     suggests.map(function (suggest) {
       var isActive = activeSuggest && suggest.placeId === activeSuggest.placeId;
 
       return _react2.default.createElement(_suggestItem2.default, { key: suggest.placeId,
         className: suggest.className,
         suggest: suggest,
+        style: suggestItemStyle,
         isActive: isActive,
         onMouseDown: onSuggestMouseDown,
         onMouseOut: onSuggestMouseOut,

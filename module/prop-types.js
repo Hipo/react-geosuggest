@@ -33,5 +33,10 @@ exports.default = {
   skipSuggest: _react2.default.PropTypes.func,
   getSuggestLabel: _react2.default.PropTypes.func,
   autoActivateFirstSuggest: _react2.default.PropTypes.bool,
+  style: _react2.default.PropTypes.shape({
+    input: _react2.default.PropTypes.object,
+    suggests: _react2.default.PropTypes.object,
+    suggestItem: _react2.default.PropTypes.object
+  }),
   searchSuffix: _react2.default.PropTypes.string
 };

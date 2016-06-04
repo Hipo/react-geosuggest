@@ -68,7 +68,7 @@ var Geosuggest = function (_React$Component) {
 
     _this.state = {
       isSuggestsHidden: true,
-      userInput: _this.props.initialValue,
+      userInput: props.initialValue,
       activeSuggest: null,
       suggests: [],
       timer: null
@@ -97,10 +97,8 @@ var Geosuggest = function (_React$Component) {
      */
 
   }, {
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      this.setState({ userInput: this.props.initialValue });
-
+    key: 'componentWillMount',
+    value: function componentWillMount() {
       var googleMaps = this.props.googleMaps || window.google && // eslint-disable-line no-extra-parens
       window.google.maps || this.googleMaps;
 
@@ -260,11 +258,20 @@ var Geosuggest = function (_React$Component) {
 
       var suggests = [],
           regex = new RegExp(escapeRegExp(this.state.userInput), 'gim'),
-          skipSuggest = this.props.skipSuggest;
+          skipSuggest = this.props.skipSuggest,
+          maxFixtures = 10,
+          fixturesSearched = 0;
 
       this.props.fixtures.forEach(function (suggest) {
+        if (fixturesSearched >= maxFixtures) {
+          return;
+        }
+
         if (!skipSuggest(suggest) && suggest.label.match(regex)) {
+          fixturesSearched++;
+
           suggest.placeId = suggest.label;
+          suggest.isFixture = true;
           suggests.push(suggest);
         }
       });
@@ -273,7 +280,8 @@ var Geosuggest = function (_React$Component) {
         if (!skipSuggest(suggest)) {
           suggests.push({
             label: _this5.props.getSuggestLabel(suggest),
-            placeId: suggest.place_id
+            placeId: suggest.place_id,
+            isFixture: false
           });
         }
       });
@@ -301,7 +309,7 @@ var Geosuggest = function (_React$Component) {
     value: function hideSuggests() {
       var _this6 = this;
 
-      this.props.onBlur();
+      this.props.onBlur(this.state.userInput);
       var timer = setTimeout(function () {
         _this6.setState({ isSuggestsHidden: true });
       }, 100);
@@ -342,6 +350,8 @@ var Geosuggest = function (_React$Component) {
       if (newIndex >= 0 && newIndex <= suggestsCount) {
         newActiveSuggest = this.state.suggests[newIndex];
       }
+
+      this.props.onActivateSuggest(newActiveSuggest);
 
       this.setState({ activeSuggest: newActiveSuggest });
     }
@@ -384,7 +394,7 @@ var Geosuggest = function (_React$Component) {
     value: function geocodeSuggest(suggest) {
       var _this7 = this;
 
-      this.geocoder.geocode(suggest.placeId ? { placeId: suggest.placeId } : { address: suggest.label }, function (results, status) {
+      this.geocoder.geocode(suggest.placeId && !suggest.isFixture ? { placeId: suggest.placeId } : { address: suggest.label }, function (results, status) {
         if (status !== _this7.googleMaps.GeocoderStatus.OK) {
           return;
         }
@@ -413,13 +423,14 @@ var Geosuggest = function (_React$Component) {
       var _this8 = this;
 
       var attributes = (0, _filterInputAttributes2.default)(this.props),
-          classes = (0, _classnames2.default)('geosuggest', this.props.className);
-      var input = _react2.default.createElement(_input2.default, _extends({ className: this.props.inputClassName,
+          classes = (0, _classnames2.default)('geosuggest', this.props.className),
+          input = _react2.default.createElement(_input2.default, _extends({ className: this.props.inputClassName,
         ref: 'input',
         value: this.state.userInput,
         onChange: this.onInputChange.bind(this),
         onFocus: this.onInputFocus.bind(this),
         onBlur: this.onInputBlur.bind(this),
+        style: this.props.style.input,
         onNext: function onNext() {
           return _this8.activateSuggest('next');
         },
@@ -431,6 +442,8 @@ var Geosuggest = function (_React$Component) {
         },
         onEscape: this.hideSuggests.bind(this) }, attributes)),
           suggestionsList = _react2.default.createElement(_suggestList2.default, { isHidden: this.state.isSuggestsHidden,
+        style: this.props.style.suggests,
+        suggestItemStyle: this.props.style.suggestItem,
         suggests: this.state.suggests,
         activeSuggest: this.state.activeSuggest,
         onSuggestMouseDown: function onSuggestMouseDown() {

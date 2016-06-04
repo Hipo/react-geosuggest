@@ -19,6 +19,7 @@ exports.default = {
   country: null,
   types: null,
   googleMaps: null,
+  onActivateSuggest: function onActivateSuggest() {},
   onSuggestSelect: function onSuggestSelect() {},
   onFocus: function onFocus() {},
   onBlur: function onBlur() {},
@@ -27,5 +28,10 @@ exports.default = {
   getSuggestLabel: function getSuggestLabel(suggest) {
     return suggest.description;
   },
-  autoActivateFirstSuggest: false
+  autoActivateFirstSuggest: false,
+  style: {
+    'input': {},
+    'suggests': {},
+    'suggestItem': {}
+  }
 };

@@ -33,12 +33,15 @@ exports.default = function (_ref) {
   var onMouseOut = _ref$onMouseOut === undefined ? function () {} : _ref$onMouseOut;
   var _ref$onSelect = _ref.onSelect;
   var onSelect = _ref$onSelect === undefined ? function () {} : _ref$onSelect;
+  var _ref$style = _ref.style;
+  var style = _ref$style === undefined ? {} : _ref$style;
 
   var classes = (0, _classnames2.default)('geosuggest-item', className, { 'geosuggest-item--active': isActive });
 
   return _react2.default.createElement(
     'li',
     { className: classes,
+      style: style,
       onMouseDown: onMouseDown,
       onMouseOut: onMouseOut,
       onClick: function onClick(event) {
