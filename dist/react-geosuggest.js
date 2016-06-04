@@ -119,7 +119,7 @@ var Geosuggest = function (_React$Component) {
 
     _this.state = {
       isSuggestsHidden: true,
-      userInput: _this.props.initialValue,
+      userInput: props.initialValue,
       activeSuggest: null,
       suggests: [],
       timer: null
@@ -311,10 +311,18 @@ var Geosuggest = function (_React$Component) {
 
       var suggests = [],
           regex = new RegExp(escapeRegExp(this.state.userInput), 'gim'),
-          skipSuggest = this.props.skipSuggest;
+          skipSuggest = this.props.skipSuggest,
+          maxFixtures = 10,
+          fixturesSearched = 0;
 
       this.props.fixtures.forEach(function (suggest) {
+        if (fixturesSearched >= maxFixtures) {
+          return;
+        }
+
         if (!skipSuggest(suggest) && suggest.label.match(regex)) {
+          fixturesSearched++;
+
           suggest.placeId = suggest.label;
           suggests.push(suggest);
         }
@@ -393,6 +401,8 @@ var Geosuggest = function (_React$Component) {
       if (newIndex >= 0 && newIndex <= suggestsCount) {
         newActiveSuggest = this.state.suggests[newIndex];
       }
+
+      this.props.onActivateSuggest(newActiveSuggest);
 
       this.setState({ activeSuggest: newActiveSuggest });
     }
@@ -550,6 +560,7 @@ exports.default = {
   country: null,
   types: null,
   googleMaps: null,
+  onActivateSuggest: function onActivateSuggest() {},
   onSuggestSelect: function onSuggestSelect() {},
   onFocus: function onFocus() {},
   onBlur: function onBlur() {},

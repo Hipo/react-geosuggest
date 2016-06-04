@@ -35,13 +35,22 @@ You can also use the standalone build by including `dist/react-geosuggest.js` in
 npm install react-geosuggest --save
 ```
 
-
 ## Usage
 
 The Geosuggest works out of the box by just including it. However, you can customize the behaviour with the properties noted below.
 
+### ES6:
+
 ```
-var Geosuggest = require('react-geosuggest');
+import Geosuggest from 'react-geosuggest';
+
+<Geosuggest />
+```
+
+### ES5:
+
+```
+var Geosuggest = require('react-geosuggest').default;
 
 <Geosuggest />
 ```
@@ -151,6 +160,15 @@ Gets triggered when a suggest got selected. Only parameter is an object with dat
 * `location` – Type `Object` – The location containing `lat` and `lng`
 * `gmaps` – Type `Object` – *Optional!* The complete response when there was a Google Maps geocode necessary (e.g. no location provided for presets). [Check the Google Maps Reference](https://developers.google.com/maps/documentation/javascript/reference#GeocoderResult) for more information on it’s structure.
 
+#### onActivateSuggest
+Type: `Function`
+Default: `function(suggest) {}`
+
+Gets triggered when a suggest is activated in the list. Only parameter is an object with data of the selected suggest. This data is available:
+
+* `label` – Type `String` – The label name
+* `placeId` – Type `String` – If it is a preset, equals the `label`. Else it is the Google Maps `placeID`
+
 #### getSuggestLabel
 Type: `Function`
 Default: `function(suggest) { return suggest.description; }`
@@ -187,8 +205,9 @@ It is also possible to clear the value of the input contained within the GeoSugg
 ### Example
 
 ```
-var React = require('react'),
-  Geosuggest = require('./src/Geosuggest.jsx');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Geosuggest from 'react-geosuggest';
 
 var App = React.createClass({
   /**
@@ -223,13 +242,23 @@ var App = React.createClass({
   }
 });
 
-React.render(<App />, document.getElementById('app'));
+ReactDOM.render(<App />, document.getElementById('app'));
 ```
 
 ## Styling
 
 This component uses [BEM](http://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/) for namespacing the CSS classes. So styling should be easy and without conflicts. See the [geosuggest.css](https://github.com/ubilabs/react-geosuggest/blob/master/src/geosuggest.css) for an example styling.
 
+### Note:
+`geosuggest__suggests--hidden` class is added to auto hide the suggestion list. Copy the below style in your CSS file.
+```
+.geosuggest__suggests--hidden {
+  max-height: 0;
+  overflow: hidden;
+  border-width: 0;
+}
+```
+The above class is added whenever the suggestion list needs to be hidden. Like when user selects the item from the list or when the user triggers `blur` event on the input.
 
 ## Contributing
 

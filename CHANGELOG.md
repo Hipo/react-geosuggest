@@ -1,10 +1,30 @@
-## 1.21.0 (2016-04-06)
+## 1.23.0 (2016-05-19)
+
+
+#### Bug Fixes
+
+* Bug fix for IE 10, 'this' is not defined in the constructor function.  We need to access the props directly from the argument. ([2dca2727](https://github.com/ubilabs/react-geosuggest/commit/2dca2727b4c4aee585ce419af2954c49d4208606))
+
+#### Features
+
+* **Geosuggest:** add onActivateSuggest event ([ab2fc049](https://github.com/ubilabs/react-geosuggest/commit/ab2fc049624076fb2d0ab517ebae705a82a987dc))
+
+
+
+## 1.22.0 (2016-04-26)
 
 
 #### Features
 
-* **searchSuffix:** New "searchSuffix" prop is added to customize user input before sending a request ([a573a650](https://github.com/ubilabs/react-geosuggest/commit/a573a6505378e77b32c2c0e6d2b6c58893122f5a))
+* **Geosuggest:**
+  * hardcode maxFixtures to 10 ([c2c3ef0f](https://github.com/ubilabs/react-geosuggest/commit/c2c3ef0f4a56b76720b90971c7b554b175ed0917))
 
+
+## 1.21.0 (2016-04-15)
+
+#### Features
+
+* Update to React 15 ([ 	f604019](https://github.com/ubilabs/react-geosuggest/commit/f60401938166d1eaaf7a80c2e83992fe22d35e2b))
 
 ### 1.20.1 (2016-04-06)
 

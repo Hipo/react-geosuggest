@@ -14,11 +14,17 @@ export default {
   country: null,
   types: null,
   googleMaps: null,
+  onActivateSuggest: () => {},
   onSuggestSelect: () => {},
   onFocus: () => {},
   onBlur: () => {},
   onChange: () => {},
   skipSuggest: () => {},
   getSuggestLabel: suggest => suggest.description,
-  autoActivateFirstSuggest: false
+  autoActivateFirstSuggest: false,
+  style: {
+    'input': {},
+    'suggests': {},
+    'suggestItem': {}
+  }
 };
