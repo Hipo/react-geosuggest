@@ -342,18 +342,23 @@ class Geosuggest extends React.Component {
         onSuggestMouseOut={() => this.setState({ignoreBlur: false})}
         onSuggestSelect={this.selectSuggest.bind(this)} />);
 
-    return <div className={classes}>
+      const suggestsWrapperClassName = classnames(
+          'geosuggest__suggests-wrapper',
+          {'geosuggest__suggests-wrapper--hidden': this.state.isSuggestsHidden}
+      );
+
+    return (<div className={classes}>
       <div className="geosuggest__input-wrapper">
         {input}
       </div>
       {this.state.suggests && this.state.suggests.length > 0 ?
-          <div className="geosuggest__suggests-wrapper">
+          <div className={suggestsWrapperClassName}>
               {suggestionsList}
 
               {this.props.children}
           </div>
           :null}
-    </div>;
+    </div>);
   }
 }
 

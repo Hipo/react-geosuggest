@@ -505,6 +505,8 @@ var Geosuggest = function (_React$Component) {
         },
         onSuggestSelect: this.selectSuggest.bind(this) });
 
+      var suggestsWrapperClassName = (0, _classnames2.default)('geosuggest__suggests-wrapper', { 'geosuggest__suggests-wrapper--hidden': this.state.isSuggestsHidden });
+
       return _react2.default.createElement(
         'div',
         { className: classes },
@@ -515,7 +517,7 @@ var Geosuggest = function (_React$Component) {
         ),
         this.state.suggests && this.state.suggests.length > 0 ? _react2.default.createElement(
           'div',
-          { className: 'geosuggest__suggests-wrapper' },
+          { className: suggestsWrapperClassName },
           suggestionsList,
           this.props.children
         ) : null
