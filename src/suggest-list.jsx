@@ -35,5 +35,7 @@ export default ({
         onMouseOut={onSuggestMouseOut}
         onSelect={() => onSuggestSelect(suggest)} />;
     })}
+
+    {this.props.children}
   </ul>;
 };
