@@ -15,7 +15,8 @@ export default ({
   onSuggestMouseOut = () => {},
   onSuggestSelect = () => {},
   style = {},
-  suggestItemStyle = {}
+  suggestItemStyle = {},
+  children = null
 }) => {
   const classes = classnames(
     'geosuggest__suggests',
@@ -36,6 +37,8 @@ export default ({
         onSelect={() => onSuggestSelect(suggest)} />;
     })}
 
-    {this.props.children}
+    {suggests.length > 0 ?
+          children
+          :null}
   </ul>;
 };

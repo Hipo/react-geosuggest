@@ -341,7 +341,7 @@ class Geosuggest extends React.Component {
         onSuggestMouseDown={() => this.setState({ignoreBlur: true})}
         onSuggestMouseOut={() => this.setState({ignoreBlur: false})}
         onSuggestSelect={this.selectSuggest.bind(this)}>
-          {this.props.children};
+          {this.props.children}
       </SuggestList>);
 
     return <div className={classes}>
