@@ -349,7 +349,9 @@ class Geosuggest extends React.Component {
         {input}
       </div>
       <div className="geosuggest__suggests-wrapper">
-        {suggestionsList}
+          {this.state.suggests && this.state.suggests.length > 0 ?
+              suggestionsList
+              :null}
       </div>
     </div>;
   }

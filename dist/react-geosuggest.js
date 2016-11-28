@@ -520,7 +520,7 @@ var Geosuggest = function (_React$Component) {
         _react2.default.createElement(
           'div',
           { className: 'geosuggest__suggests-wrapper' },
-          suggestionsList
+          this.state.suggests && this.state.suggests.length > 0 ? suggestionsList : null
         )
       );
     }
