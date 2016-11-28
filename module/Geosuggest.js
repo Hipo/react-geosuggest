@@ -441,22 +441,18 @@ var Geosuggest = function (_React$Component) {
           return _this8.selectSuggest(_this8.state.activeSuggest);
         },
         onEscape: this.hideSuggests.bind(this) }, attributes)),
-          suggestionsList = _react2.default.createElement(
-        _suggestList2.default,
-        { isHidden: this.state.isSuggestsHidden,
-          style: this.props.style.suggests,
-          suggestItemStyle: this.props.style.suggestItem,
-          suggests: this.state.suggests,
-          activeSuggest: this.state.activeSuggest,
-          onSuggestMouseDown: function onSuggestMouseDown() {
-            return _this8.setState({ ignoreBlur: true });
-          },
-          onSuggestMouseOut: function onSuggestMouseOut() {
-            return _this8.setState({ ignoreBlur: false });
-          },
-          onSuggestSelect: this.selectSuggest.bind(this) },
-        this.props.children
-      );
+          suggestionsList = _react2.default.createElement(_suggestList2.default, { isHidden: this.state.isSuggestsHidden,
+        style: this.props.style.suggests,
+        suggestItemStyle: this.props.style.suggestItem,
+        suggests: this.state.suggests,
+        activeSuggest: this.state.activeSuggest,
+        onSuggestMouseDown: function onSuggestMouseDown() {
+          return _this8.setState({ ignoreBlur: true });
+        },
+        onSuggestMouseOut: function onSuggestMouseOut() {
+          return _this8.setState({ ignoreBlur: false });
+        },
+        onSuggestSelect: this.selectSuggest.bind(this) });
 
       return _react2.default.createElement(
         'div',
@@ -466,11 +462,12 @@ var Geosuggest = function (_React$Component) {
           { className: 'geosuggest__input-wrapper' },
           input
         ),
-        _react2.default.createElement(
+        this.state.suggests && this.state.suggests.length > 0 ? _react2.default.createElement(
           'div',
           { className: 'geosuggest__suggests-wrapper' },
-          this.state.suggests && this.state.suggests.length > 0 ? suggestionsList : null
-        )
+          suggestionsList,
+          this.props.children
+        ) : null
       );
     }
   }]);

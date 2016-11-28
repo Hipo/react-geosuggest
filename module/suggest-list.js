@@ -41,8 +41,6 @@ exports.default = function (_ref) {
   var style = _ref$style === undefined ? {} : _ref$style;
   var _ref$suggestItemStyle = _ref.suggestItemStyle;
   var suggestItemStyle = _ref$suggestItemStyle === undefined ? {} : _ref$suggestItemStyle;
-  var _ref$children = _ref.children;
-  var children = _ref$children === undefined ? null : _ref$children;
 
   var classes = (0, _classnames2.default)('geosuggest__suggests', { 'geosuggest__suggests--hidden': isHidden });
   return _react2.default.createElement(
@@ -61,7 +59,6 @@ exports.default = function (_ref) {
         onSelect: function onSelect() {
           return onSuggestSelect(suggest);
         } });
-    }),
-    children
+    })
   );
 };

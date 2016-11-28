@@ -492,22 +492,18 @@ var Geosuggest = function (_React$Component) {
           return _this8.selectSuggest(_this8.state.activeSuggest);
         },
         onEscape: this.hideSuggests.bind(this) }, attributes)),
-          suggestionsList = _react2.default.createElement(
-        _suggestList2.default,
-        { isHidden: this.state.isSuggestsHidden,
-          style: this.props.style.suggests,
-          suggestItemStyle: this.props.style.suggestItem,
-          suggests: this.state.suggests,
-          activeSuggest: this.state.activeSuggest,
-          onSuggestMouseDown: function onSuggestMouseDown() {
-            return _this8.setState({ ignoreBlur: true });
-          },
-          onSuggestMouseOut: function onSuggestMouseOut() {
-            return _this8.setState({ ignoreBlur: false });
-          },
-          onSuggestSelect: this.selectSuggest.bind(this) },
-        this.props.children
-      );
+          suggestionsList = _react2.default.createElement(_suggestList2.default, { isHidden: this.state.isSuggestsHidden,
+        style: this.props.style.suggests,
+        suggestItemStyle: this.props.style.suggestItem,
+        suggests: this.state.suggests,
+        activeSuggest: this.state.activeSuggest,
+        onSuggestMouseDown: function onSuggestMouseDown() {
+          return _this8.setState({ ignoreBlur: true });
+        },
+        onSuggestMouseOut: function onSuggestMouseOut() {
+          return _this8.setState({ ignoreBlur: false });
+        },
+        onSuggestSelect: this.selectSuggest.bind(this) });
 
       return _react2.default.createElement(
         'div',
@@ -517,11 +513,12 @@ var Geosuggest = function (_React$Component) {
           { className: 'geosuggest__input-wrapper' },
           input
         ),
-        _react2.default.createElement(
+        this.state.suggests && this.state.suggests.length > 0 ? _react2.default.createElement(
           'div',
           { className: 'geosuggest__suggests-wrapper' },
-          this.state.suggests && this.state.suggests.length > 0 ? suggestionsList : null
-        )
+          suggestionsList,
+          this.props.children
+        ) : null
       );
     }
   }]);
@@ -909,8 +906,6 @@ exports.default = function (_ref) {
   var style = _ref$style === undefined ? {} : _ref$style;
   var _ref$suggestItemStyle = _ref.suggestItemStyle;
   var suggestItemStyle = _ref$suggestItemStyle === undefined ? {} : _ref$suggestItemStyle;
-  var _ref$children = _ref.children;
-  var children = _ref$children === undefined ? null : _ref$children;
 
   var classes = (0, _classnames2.default)('geosuggest__suggests', { 'geosuggest__suggests--hidden': isHidden });
   return _react2.default.createElement(
@@ -929,8 +924,7 @@ exports.default = function (_ref) {
         onSelect: function onSelect() {
           return onSuggestSelect(suggest);
         } });
-    }),
-    children
+    })
   );
 };
 
