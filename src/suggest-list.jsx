@@ -37,8 +37,6 @@ export default ({
         onSelect={() => onSuggestSelect(suggest)} />;
     })}
 
-    {suggests.length > 0 ?
-          children
-          :null}
+    {children}
   </ul>;
 };

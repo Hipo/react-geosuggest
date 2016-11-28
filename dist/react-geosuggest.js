@@ -930,7 +930,7 @@ exports.default = function (_ref) {
           return onSuggestSelect(suggest);
         } });
     }),
-    suggests.length > 0 ? children : null
+    children
   );
 };
 
