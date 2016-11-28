@@ -1,3 +1,26 @@
+### 1.24.2 (2016-11-28)
+
+
+#### Bug Fixes
+
+* **Geosuggest:**
+  * GeoCode fixtures if no location is provided (Re-Implementation of #145) ([8df8d31c](https://github.com/ubilabs/react-geosuggest/commit/8df8d31c55e2090327b2d069f14bd1810397d5b0))
+  * GeoCode fixtures if no location is provided ([67ec4e5b](https://github.com/ubilabs/react-geosuggest/commit/67ec4e5b9676caa6fd623bb4add62b8a564202fd))
+  * move autoComplete='off' to input.jsx ([ee4df12a](https://github.com/ubilabs/react-geosuggest/commit/ee4df12acfe312c8d4eaba75788fbcdcd710b645))
+  * Set autoComplete='off' and remove autoComplete option ([33763dd9](https://github.com/ubilabs/react-geosuggest/commit/33763dd90d24797b7435d331b0c937f7eb59a896), closes [#136](https://github.com/ubilabs/react-geosuggest/issues/136))
+  * initialise Google Maps in componentWillMount instead of componentDidMount ([2f326427](https://github.com/ubilabs/react-geosuggest/commit/2f3264279a1aca5164ced0bb4f5c40e46c608a2c), closes [#130](https://github.com/ubilabs/react-geosuggest/issues/130))
+* **example:** add Google Maps API key ([9c3c6d25](https://github.com/ubilabs/react-geosuggest/commit/9c3c6d2596bdafbe633c9b33f125ac4a313c9534), closes [#107](https://github.com/ubilabs/react-geosuggest/issues/107))
+* **package:**
+  * add test cases and src/*.js to linter ([61e3d08b](https://github.com/ubilabs/react-geosuggest/commit/61e3d08b756ad784edc9190787d9cd0ff9aaa77e))
+  * add src/*.js to light-server watch list ([68432ec1](https://github.com/ubilabs/react-geosuggest/commit/68432ec1af65872f211169a89c042f8130ecfc76))
+
+
+#### Features
+
+* **on-blur:** return current user input ([e88eda42](https://github.com/ubilabs/react-geosuggest/commit/e88eda424e57280bac8609b88cf9a30e77fc893a))
+* **searchSuffix:** New "searchSuffix" prop is added to customize user input before sending a reques ([a573a650](https://github.com/ubilabs/react-geosuggest/commit/a573a6505378e77b32c2c0e6d2b6c58893122f5a))
+
+
 ## 1.23.0 (2016-05-19)
 
 
